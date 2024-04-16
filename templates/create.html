@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>create|message</title>
+</head>
+<style>
+    body {background-color:powderblue;
+        font-size: 40px;
+    }
+    h1   {color: blue;}
+    p    {color: red;}</style>
+
+<body>
+    <h1 align="center">create massage</h1>
+
+    <form method="POST" action="">
+        {% csrf_token %}
+        <table border="1" align="center">
+            <tr>
+                <td> Enter Name</td>
+                <td> <input type="text" name="uname" placeholder="sender name"></td>
+
+
+            </tr>
+            <tr>
+                <td>Email ID:</td>
+                <td> <input type="email" name="uemail" placeholder="senderemail"></td>
+
+            </tr>
+            <tr>
+                <td>Mobile no:</td>
+                <td> <input type="number" name="umobile" placeholder="sender mobile number"></td>
+
+            </tr>
+            <tr>
+                <td>Message:</td>
+                <td><textarea name="msg" id="" cols="8" rows="5"> </textarea></td>
+
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" value="Send" ></td>
+            </tr>
+
+
+
+
+        </table>
+
+    </form>
+</body>
+
+</html>

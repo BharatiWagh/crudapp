@@ -1,0 +1,68 @@
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from .models import Msg
+
+
+def create(request):
+    print('My current request is', request.method)
+    if request.method == 'POST':
+        nm = request.POST["uname"]
+        print(nm)
+        em = request.POST["uemail"]
+        print(em)
+        mob = request.POST["umobile"]
+        print(mob)
+        msg = request.POST["msg"]
+        print(msg)
+        # here join database query
+        m = Msg.objects.create(name=nm, email=em, mobile=mob, message=msg)
+        m.save()
+        # return HttpResponse('data saved')
+        return redirect("/")
+    else:
+        return render(request, 'create.html')
+
+
+def dashboard(request):
+    m = Msg.objects.all()
+    context = {}
+    context["data"] = m
+   # print(m) print list and object1
+    # backend data fetch
+    # for i in m:  # this is for only print table name and object
+    #     print(i.name)
+    #     print(i.email)
+    #     print(i.mobile)
+    #     print(i.message)
+
+    return render(request, 'dashboard.html', context)
+
+
+def delete(request, rid):
+    m = Msg.objects.filter(id=rid)
+    m.delete()
+    return redirect("/")
+    # print(m)
+    # for i in m:  # this is for only print table name and object
+    #     print(i.name)
+    #     print(i.email)
+    #     print(i.mobile)
+    #     print(i.message)
+    return HttpResponse("Id to be deleted  "+rid)
+
+
+def edit(request, rid):
+    if request.method == "GET":
+        m = Msg.objects.filter(id=rid)
+        context = {}
+        context["data"] = m
+        return render(request, 'edit.html', context)
+    else:
+        nm = request.POST["uname"]
+        em = request.POST["uemail"]
+        mob = request.POST["umobile"]
+        msg = request.POST["msg"]
+        m = Msg.objects.filter(id=rid)
+        m.update(name=nm, email=em, mobile=mob, message=msg)
+
+        return redirect("/")
